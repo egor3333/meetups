@@ -136,9 +136,7 @@ export default {
 
   methods: {
     async fetchMeetups() {
-      let res = await fetchMeetups();
-      console.log('___res', res)
-      this.rawMeetups = res
+      this.rawMeetups = await fetchMeetups();
     },
   },
 };
