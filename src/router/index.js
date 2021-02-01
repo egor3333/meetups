@@ -73,6 +73,10 @@ const routes = [
     name: "register",
     component: () => import("@/views/SignUp"),
   },
+  {
+    path: "*",
+    component: () => import("@/views/NotFoundPage"),
+  },
 ];
 
 const router = new VueRouter({
