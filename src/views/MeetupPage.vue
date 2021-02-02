@@ -7,17 +7,17 @@
       <div class="container">
         <div class="meetup">
           <div class="meetup__content">
-            <div class="content-tabs">
+            <div class="content-tabs" id="#meetupTabs">
               <div class="content-tabs__nav">
                 <router-link
-                  :to="{ name: 'meetup-description', params: { meetupId } }"
+                  :to="{ name: 'meetup-description', params: { meetupId }, hash: '#meetupTabs' }"
                   class="content-tabs__tab"
                   :class="{'content-tabs__tab_active': $route.name === 'meetup-description'}"
                 >
                   Описание
                 </router-link>
                 <router-link
-                  :to="{ name: 'meetup-agenda', params: { meetupId } }"
+                  :to="{ name: 'meetup-agenda', params: { meetupId }, hash: '#meetupTabs' }"
                   class="content-tabs__tab"
                   :class="{'content-tabs__tab_active': $route.name === 'meetup-agenda'}"
                 >

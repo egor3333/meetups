@@ -3,18 +3,13 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-function scrollBehavior(to, from, savedPosition) {
-  if (savedPosition) {
-    return savedPosition;
-  } else if (to.hash) {
+function scrollBehavior(to) {
+  if (to.hash) {
     return {
       selector: to.hash,
-    };
-  } else if (to.meta.saveScrollPosition && from.meta.saveScrollPosition) {
-    return false;
+      behavior: 'smooth',
+    }
   }
-
-  return { x: 0, y: 0 };
 }
 
 const routes = [
@@ -34,7 +29,7 @@ const routes = [
     name: "meetup",
     props: true,
     meta: {
-      showReturnToMeetups: true,
+      showReturnToMeetups: true
     },
     component: () => import("@/views/MeetupPage"),
     children: [
