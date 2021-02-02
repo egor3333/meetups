@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { fetchMeetups } from '@/common/data';
+import { fetchMeetups } from '@/common/api';
 import MeetupsList from '@/components/MeetupsList';
 import MeetupsCalendar from '@/components/MeetupsCalendar';
 import PageTabs from '@/components/PageTabs';

@@ -1,45 +1,56 @@
 <template>
-  <div>
-    ___MeetupAgendaPage
-
-     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci natus, amet quisquam a beatae doloribus nulla ea distinctio quam illo dignissimos rem, nostrum sequi laboriosam. Nam consectetur temporibus aliquid sapiente.
-
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam tempora molestias accusamus magnam quos totam nesciunt labore animi, mollitia veniam consequuntur facere placeat atque repellat, neque sapiente illum magni architecto.
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eaque explicabo veritatis, dolores sapiente repellat nisi cumque officia ducimus maiores cum quo non numquam, velit laboriosam omnis error? Iure, laudantium.
-
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis totam eum deserunt harum, quod itaque cupiditate cumque assumenda. Praesentium at fugiat error! Quaerat nulla reiciendis vero ut ipsum amet beatae!
-
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur officiis est, voluptatibus cum quisquam aperiam earum. Voluptatum repudiandae quam et inventore, debitis quasi adipisci libero sunt. Quos praesentium alias hic.
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quo nostrum mollitia, sed necessitatibus cupiditate fugiat consequatur aliquid dolore quidem deserunt libero nisi, obcaecati a? Possimus deleniti officiis ad iusto!
-
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eaque explicabo veritatis, dolores sapiente repellat nisi cumque officia ducimus maiores cum quo non numquam, velit laboriosam omnis error? Iure, laudantium.
-
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis totam eum deserunt harum, quod itaque cupiditate cumque assumenda. Praesentium at fugiat error! Quaerat nulla reiciendis vero ut ipsum amet beatae!
-
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur officiis est, voluptatibus cum quisquam aperiam earum. Voluptatum repudiandae quam et inventore, debitis quasi adipisci libero sunt. Quos praesentium alias hic.
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quo nostrum mollitia, sed necessitatibus cupiditate fugiat consequatur aliquid dolore quidem deserunt libero nisi, obcaecati a? Possimus deleniti officiis ad iusto!
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eaque explicabo veritatis, dolores sapiente repellat nisi cumque officia ducimus maiores cum quo non numquam, velit laboriosam omnis error? Iure, laudantium.
-
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis totam eum deserunt harum, quod itaque cupiditate cumque assumenda. Praesentium at fugiat error! Quaerat nulla reiciendis vero ut ipsum amet beatae!
-
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur officiis est, voluptatibus cum quisquam aperiam earum. Voluptatum repudiandae quam et inventore, debitis quasi adipisci libero sunt. Quos praesentium alias hic.
-
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quo nostrum mollitia, sed necessitatibus cupiditate fugiat consequatur aliquid dolore quidem deserunt libero nisi, obcaecati a? Possimus deleniti officiis ad iusto!
+  <div v-if="meetup_.agenda" class="meetup-agenda">
+    <div v-for="agenda in meetup_.agenda" :key="agenda.id" class="meetup-agenda__item">
+      <div class="meetup-agenda__item-col">
+        <app-icon :icon="agenda.iconType" />
+      </div>
+      <div class="meetup-agenda__item-col">{{ agenda.startsAt }} - {{ agenda.endsAt }}</div>
+      <div class="meetup-agenda__item-col">
+        <h5 class="meetup-agenda__title">{{ agenda.title ? agenda.title : agenda.defaultTitle }}</h5>
+        <p v-if="agenda === 'talk'">
+          <span>{{ agenda.speaker }}</span>
+          <span class="meetup-agenda__dot"></span>
+          <span class="meetup-agenda__lang">{{ agenda.language }}</span>
+        </p>
+        <p v-if="agenda.description">{{ agenda.description }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'MeetupAgendaPage'
+import { agendaItemIcons, agendaItemTitles } from '../common/data'
+import AppIcon from '../components/AppIcon'
+
+export default {
+  name: 'MeetupAgendaPage',
+
+  props: {
+    meetup: Object
+  },
+
+  components: {
+    AppIcon
+  },
+
+  computed: {
+    meetup_() {
+      if(!this.meetup) { return null }
+
+      let res = {
+        ...this.meetup,
+        agenda: this.meetup.agenda ? this.meetup.agenda.map(agenda => ({
+          ...agenda,
+          iconType: agendaItemIcons[agenda.type],
+          defaultTitle: agendaItemTitles[agenda.type]
+        })) : []
+      }
+      console.log(res)
+
+      return res
+    }
   }
+}
 </script>
 
 <style scoped></style>

@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white">
     <template v-if="meetup">
-      <div class="meetup-cover">
+      <div class="meetup-cover" :style="coverStyle">
         <h1 class="meetup-cover__title">{{ meetup.title }}</h1>
       </div>
       <div class="container">
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { fetchMeetupById } from '../common/data'
+import { fetchMeetupById, getMeetupCoverLink } from '../common/api'
 import AppIcon from '../components/AppIcon'
 
 export default {
@@ -112,6 +112,11 @@ export default {
           month: 'long',
           day: 'numeric',
       })
+    },
+    coverStyle() {
+      return this.meetup.imageId
+       ? { '--bg-url': `url('${getMeetupCoverLink(this.meetup)}')` }
+       : {}
     }
   },
 

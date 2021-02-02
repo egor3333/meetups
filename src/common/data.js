@@ -1,27 +1,21 @@
-/** URL адрес API */
-export const API_URL = process.env.VUE_APP_API_URL;
-
-/**
- * Возвращает ссылку на изображение митапа для митапа
- * @param meetup - объект с описанием митапа (и параметром meetupId)
- * @return {string} - ссылка на изображение митапа
- */
-export function getMeetupCoverLink(meetup) {
-  return `${API_URL}/images/${meetup.imageId}`;
+export const agendaItemTitles = {
+  registration: 'Регистрация',
+  opening: 'Открытие',
+  break: 'Перерыв',
+  coffee: 'Coffee Break',
+  closing: 'Закрытие',
+  afterparty: 'Afterparty',
+  talk: 'Доклад',
+  other: 'Другое',
 }
 
-/**
- * Получает список митапов с API
- * @return {Promise}
- */
-export async function fetchMeetups() {
-  return fetch(`${API_URL}/meetups`).then((res) => res.json());
-}
-
-/**
- * Получает список митапов с API по id
- * @return {Promise}
- */
-export async function fetchMeetupById(id) {
-  return fetch(`${API_URL}/meetups/${id}`).then((res) => res.json());
+export const agendaItemIcons = {
+  registration: 'key',
+  opening: 'cal-sm',
+  talk: 'tv',
+  break: 'clock',
+  coffee: 'coffee',
+  closing: 'key',
+  afterparty: 'cal-sm',
+  other: 'cal-sm',
 }
