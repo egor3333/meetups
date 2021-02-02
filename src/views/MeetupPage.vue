@@ -43,6 +43,18 @@
                 <app-icon icon="cal-lg" class="info-list__icon" />
                 <time :datetime="meetupLocalDate">{{ meetupLocalDate }}</time>
               </li>
+              <li>
+                <primary-button>Участвовать</primary-button>
+              </li>
+              <li>
+                <secondary-button>Отменить участие</secondary-button>
+              </li>
+              <li>
+                <primary-button>Редактировать</primary-button>
+              </li>
+              <li>
+                <danger-button>Удалить</danger-button>
+              </li>
             </ul>
           </div>
         </div>
@@ -57,6 +69,7 @@
 <script>
 import { fetchMeetupById, getMeetupCoverLink } from '../common/api'
 import AppIcon from '../components/AppIcon'
+import { PrimaryButton, SecondaryButton, DangerButton } from '../components/Buttons'
 
 export default {
   name: 'MeetupPage',
@@ -69,7 +82,10 @@ export default {
   },
 
   components: {
-    AppIcon
+    AppIcon,
+    PrimaryButton,
+    SecondaryButton,
+    DangerButton
   },
 
   beforeRouteEnter(to, from, next) {
@@ -91,7 +107,6 @@ export default {
     } else {
       fetchMeetupById(to.params.meetupId)
         .then((meetup) => {
-          console.log(meetup)
           this.setMeetup(meetup);
           next();
         });
