@@ -17,3 +17,11 @@ export function getMeetupCoverLink(meetup) {
 export async function fetchMeetups() {
   return fetch(`${API_URL}/meetups`).then((res) => res.json());
 }
+
+/**
+ * Получает список митапов с API по id
+ * @return {Promise}
+ */
+export async function fetchMeetupById(id) {
+  return fetch(`${API_URL}/meetups/${id}`).then((res) => res.json());
+}

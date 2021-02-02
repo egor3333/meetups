@@ -1,13 +1,126 @@
 <template>
-  <div>
-    MeetupPage
+  <div class="bg-white">
+    <template v-if="meetup">
+      <div class="meetup-cover">
+        <h1 class="meetup-cover__title">{{ meetup.title }}</h1>
+      </div>
+      <div class="container">
+        <div class="meetup">
+          <div class="meetup__content">
+            <div class="content-tabs">
+              <div class="content-tabs__nav">
+                <router-link
+                  :to="{ name: 'meetup-description', params: { meetupId } }"
+                  class="content-tabs__tab"
+                  :class="{'content-tabs__tab_active': $route.name === 'meetup-description'}"
+                >
+                  Описание
+                </router-link>
+                <router-link
+                  :to="{ name: 'meetup-agenda', params: { meetupId } }"
+                  class="content-tabs__tab"
+                  :class="{'content-tabs__tab_active': $route.name === 'meetup-agenda'}"
+                >
+                  Программа
+                </router-link>
+              </div>
+              <div class="content-tabs__content">
+                <router-view :meetup="meetup" />
+              </div>
+            </div>
+          </div>
+          <div class="meetup__aside">
+            <ul class="info-list">
+              <li>
+                <app-icon icon="user" class="info-list__icon" />
+                {{ meetup.organizer }}
+              </li>
+              <li>
+                <app-icon icon="map" class="info-list__icon" />
+                {{ meetup.place }}
+              </li>
+              <li>
+                <app-icon icon="cal-lg" class="info-list__icon" />
+                <time :datetime="meetupLocalDate">{{ meetupLocalDate }}</time>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <h3>Loading...</h3>
+    </template>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'MeetupPage'
-  }
+import { fetchMeetupById } from '../common/data'
+import AppIcon from '../components/AppIcon'
+
+export default {
+  name: 'MeetupPage',
+
+  props: {
+    meetupId: {
+      type: String,
+      required: true,
+    },
+  },
+
+  components: {
+    AppIcon
+  },
+
+  beforeRouteEnter(to, from, next) {
+    fetchMeetupById(to.params.meetupId)
+      .then((meetup) => {
+        next((vm) => {
+          console.log(meetup)
+          vm.setMeetup(meetup);
+        });
+      })
+      .catch(() => {
+        next('/meetups');
+      });
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    if (to.params.meetupId === from.params.meetupId) {
+      next();
+    } else {
+      fetchMeetupById(to.params.meetupId)
+        .then((meetup) => {
+          console.log(meetup)
+          this.setMeetup(meetup);
+          next();
+        });
+    }
+  },
+
+  data() {
+    return {
+      meetup: null,
+    };
+  },
+
+  computed: {
+    meetupLocalDate() {
+      return new Date(this.meetup.date)
+        .toLocaleString(navigator.language, {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+      })
+    }
+  },
+
+  methods: {
+    setMeetup(meetup) {
+      this.meetup = meetup;
+    },
+  },
+};
 </script>
 
 <style scoped></style>
