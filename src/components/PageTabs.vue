@@ -6,7 +6,7 @@
       :class="{
         'page-tabs__tab_active': selected === '' || selected === 'list',
       }"
-      @click="select('list')"
+      @click="handleSelected('list')"
     >
       <svg
         fill="none"
@@ -26,7 +26,7 @@
       type="button"
       class="page-tabs__tab"
       :class="{ 'page-tabs__tab_active': selected === 'calendar' }"
-      @click="select('calendar')"
+      @click="handleSelected('calendar')"
     >
       <svg
         height="22"
@@ -50,12 +50,7 @@ export default {
 
   props: {
     selected: String,
-  },
-
-  methods: {
-    select(name) {
-      this.$emit('update:selected', name);
-    },
+    handleSelected: Function
   },
 };
 </script>

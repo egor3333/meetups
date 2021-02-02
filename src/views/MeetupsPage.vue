@@ -1,144 +1,84 @@
 <template>
-  <div class="container">
-    <div class="filters-panel">
-      <div class="filters-panel__col">
-        <form-check
-          :options="$options.dateFilterOptions"
-          v-model="filter.date"
-        ></form-check>
-      </div>
-
-      <div class="filters-panel__col">
-        <div class="form-group form-group_inline">
-          <div class="input-group input-group_icon input-group_icon-left">
-            <app-icon icon="search" />
-            <input
-              id="filters-panel__search"
-              class="form-control form-control_rounded form-control_sm"
-              type="text"
-              placeholder="Поиск"
-              v-model="filter.search"
-            />
-          </div>
-        </div>
-        <div class="form-group form-group_inline">
-          <page-tabs :selected.sync="view"></page-tabs>
-        </div>
-      </div>
-    </div>
-
-    <template v-if="filteredMeetups && filteredMeetups.length">
-      <meetups-list
-        v-if="view === 'list'"
-        :meetups="filteredMeetups"
-        key="list"
-      ></meetups-list>
-      <meetups-calendar
-        v-else-if="view === 'calendar'"
-        :meetups="filteredMeetups"
-        key="calendar"
-      ></meetups-calendar>
-    </template>
-    <app-empty v-else>Митапов по заданным условиям не найдено...</app-empty>
-  </div>
+  <meetups-view
+    :view.sync="data.view"
+    :date.sync="data.date"
+    :participation.sync="data.participation"
+    :search.sync="data.search"
+  />
 </template>
 
 <script>
-import { fetchMeetups } from '@/common/data';
-import MeetupsList from '@/components/MeetupsList';
-import MeetupsCalendar from '@/components/MeetupsCalendar';
-import PageTabs from '@/components/PageTabs';
-import FormCheck from '@/components/FormCheck';
-import AppEmpty from '@/components/AppEmpty';
-import AppIcon from '@/components/AppIcon';
+import MeetupsView from "@/components/MeetupsView";
 
 export default {
-  name: 'MeetupsPage',
-
-  dateFilterOptions: [
-    { text: 'Все', value: 'all' },
-    { text: 'Прошедшие', value: 'past' },
-    { text: 'Ожидаемые', value: 'future' },
-  ],
+  name: "MeetupsPage",
 
   components: {
-    MeetupsList,
-    MeetupsCalendar,
-    PageTabs,
-    FormCheck,
-    AppEmpty,
-    AppIcon,
+    MeetupsView
+  },
+
+  defaultData: {
+    view: "list",
+    date: "all",
+    participation: "all",
+    search: ""
   },
 
   data() {
     return {
-      rawMeetups: [],
-      filter: {
-        date: 'all',
-        participation: 'all',
-        search: '',
-      },
-      view: 'list',
+      data: this.initialRouteData()
     };
   },
 
-  mounted() {
-    this.fetchMeetups();
-  },
-
-  computed: {
-    meetups() {
-      return this.rawMeetups.map((meetup) => ({
-        ...meetup,
-        cover: meetup.imageId
-          ? `https://course-vue.javascript.ru/api/images/${meetup.imageId}`
-          : undefined,
-        coverStyle: meetup.imageId
-          ? {
-              '--bg-url': `url('https://course-vue.javascript.ru/api/images/${meetup.imageId}')`,
-            }
-          : {},
-        date: new Date(meetup.date),
-        localDate: new Date(meetup.date).toLocaleString(navigator.language, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        }),
-        dateOnlyString: new Date(meetup.date).toISOString().split('T'),
-      }));
+  watch: {
+    $route() {
+      this.getRouteValues();
     },
-
-    filteredMeetups() {
-      const dateFilter = (meetup) =>
-        this.filter.date === 'all' ||
-        (this.filter.date === 'past' && new Date(meetup.date) <= new Date()) ||
-        (this.filter.date === 'future' && new Date(meetup.date) > new Date());
-
-      const participationFilter = (meetup) =>
-        this.filter.participation === 'all' ||
-        (this.filter.participation === 'organizing' && meetup.organizing) ||
-        (this.filter.participation === 'attending' && meetup.attending);
-
-      const searchFilter = (meetup) =>
-        [meetup.title, meetup.description, meetup.place, meetup.organizer]
-          .join(' ')
-          .toLowerCase()
-          .includes(this.filter.search.toLowerCase());
-
-      return this.meetups.filter(
-        (meetup) =>
-          dateFilter(meetup) &&
-          participationFilter(meetup) &&
-          searchFilter(meetup),
-      );
-    },
+    data: {
+      deep: true,
+      immediate: true,
+      handler(v) {
+        this.setRouteValues(v);
+      }
+    }
   },
 
   methods: {
-    async fetchMeetups() {
-      this.rawMeetups = await fetchMeetups();
+    initialRouteData() {
+      let query = this.$route.query;
+      let defaultData = this.$options.defaultData;
+
+      return {
+        view: query.view || defaultData.view,
+        date: query.date || defaultData.date,
+        participation: query.participation || defaultData.participation,
+        search: query.search || defaultData.search
+      };
     },
-  },
+    getRouteValues() {
+      let query = this.$route.query;
+
+      this.data.view = query.view || this.data.view;
+      this.data.date = query.date || this.data.date;
+      this.data.participation = query.participation || this.data.participation;
+      this.data.search = query.search || this.data.search;
+    },
+    clearDefaultParams(q) {
+      return Object.keys(q).reduce(
+        (acc, i) => q[i] !== this.$options.defaultData[i]
+          ? { ...acc, [i]: q[i] } : acc,
+        {}
+      );
+    },
+    setRouteValues(v = {}) {
+      let query = this.clearDefaultParams({ ...this.$route.query, ...v });
+      this.$router.replace({ query }).catch(err => {
+        if (err.name !== "NavigationDuplicated") {
+          throw err;
+        }
+      });
+    }
+  }
 };
 </script>
 

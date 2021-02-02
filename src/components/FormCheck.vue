@@ -35,11 +35,6 @@ export default {
       default: () => Math.random().toString(),
     },
   },
-
-  model: {
-    prop: 'value',
-    event: 'change',
-  },
 };
 </script>
 
