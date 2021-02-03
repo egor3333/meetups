@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { agendaItemIcons, agendaItemTitles } from '../common/data'
+import { getAgendaIconsMap, getAgendaItemTypes } from '../common/data'
 import AppIcon from '../components/AppIcon'
 
 export default {
@@ -28,6 +28,10 @@ export default {
   props: {
     meetup: Object
   },
+
+  agendaItemIcons: getAgendaIconsMap(),
+
+  agendaItemTypes: getAgendaItemTypes(),
 
   components: {
     AppIcon
@@ -41,8 +45,8 @@ export default {
         ...this.meetup,
         agenda: this.meetup.agenda ? this.meetup.agenda.map(agenda => ({
           ...agenda,
-          iconType: agendaItemIcons[agenda.type],
-          defaultTitle: agendaItemTitles[agenda.type]
+          iconType: this.$options.agendaItemIcons[agenda.type],
+          defaultTitle: this.$options.agendaItemTypes.find(i => i.value === agenda.type).value
         })) : []
       }
       console.log(res)
