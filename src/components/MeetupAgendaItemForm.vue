@@ -41,7 +41,8 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from 'moment';
+import { cloneDeep } from 'lodash';
 import AppInput from './AppInput';
 import DropdownButton from './DropdownButton';
 import {
@@ -49,10 +50,6 @@ import {
   getAgendaItemTypes,
   getAgendaItemLanguageOptions
 } from '@/common/data';
-
-const deepClone = data => {
-  return JSON.parse(JSON.stringify(data))
-}
 
 export default {
   name: 'MeetupAgendaItemForm',
@@ -72,7 +69,7 @@ export default {
 
   data() {
     return {
-      agendaItem_: deepClone(this.agendaItem)
+      agendaItem_: cloneDeep(this.agendaItem)
     }
   },
 

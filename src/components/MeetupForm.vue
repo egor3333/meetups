@@ -70,12 +70,9 @@
 </template>
 
 <script>
+import { cloneDeep } from 'lodash';
 import MeetupAgendaItemForm from './MeetupAgendaItemForm.vue';
 import ImageUploader from './ImageUploader';
-
-function deepClone(v) {
-  return JSON.parse(JSON.stringify(v))
-}
 
 function buildAgendaItem(startsAt = '00:00') {
   return {
@@ -111,7 +108,7 @@ export default {
 
   data() {
     return {
-      meetup_: deepClone(this.meetup)
+      meetup_: cloneDeep(this.meetup)
     }
   },
 
@@ -148,7 +145,7 @@ export default {
       this.$emit('cancel')
     },
     handleSubmit() {
-      this.$emit('submit', deepClone(this.meetup_))
+      this.$emit('submit', cloneDeep(this.meetup_))
     }
   }
 };
