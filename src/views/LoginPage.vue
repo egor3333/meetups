@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="form__buttons">
-        <button type="submit" class="button button_primary button_block">Войти</button>
+        <primary-button type="submit" :block="true">Войти</primary-button>
       </div>
       <div class="form__append">Нет аккаунта?
         <router-link to="/register" class="link">Зарегистрируйтесь</router-link>
@@ -24,8 +24,14 @@
 </template>
 
 <script>
+import { PrimaryButton } from '../components/Buttons'
+
 export default {
   name: 'LoginPage',
+
+  components: {
+    PrimaryButton
+  }
 };
 </script>
 

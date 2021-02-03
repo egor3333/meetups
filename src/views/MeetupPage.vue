@@ -25,7 +25,9 @@
                 </router-link>
               </div>
               <div class="content-tabs__content">
-                <router-view :meetup="meetup" />
+                <fade-transition>
+                  <router-view :meetup="meetup" />
+                </fade-transition>
               </div>
             </div>
           </div>
@@ -70,6 +72,7 @@
 import { fetchMeetupById, getMeetupCoverLink } from '../common/api'
 import AppIcon from '../components/AppIcon'
 import { PrimaryButton, SecondaryButton, DangerButton } from '../components/Buttons'
+import FadeTransition from '../components/FadeTransition';
 
 export default {
   name: 'MeetupPage',
@@ -85,7 +88,8 @@ export default {
     AppIcon,
     PrimaryButton,
     SecondaryButton,
-    DangerButton
+    DangerButton,
+    FadeTransition,
   },
 
   beforeRouteEnter(to, from, next) {

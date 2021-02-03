@@ -29,7 +29,7 @@
         <label class="checkbox"><input type="checkbox" /> Я согласен с условиями <span></span></label>
       </div>
       <div class="form__buttons">
-        <button type="submit" class="button button_primary">Зарегистрироваться</button>
+        <primary-button type="submit">Зарегистрироваться</primary-button>
       </div>
       <div class="form__append">Уже есть аккаунт?
         <router-link to="/login" class="link">Войдите</router-link>
@@ -39,8 +39,14 @@
 </template>
 
 <script>
+import { PrimaryButton } from '../components/Buttons'
+
 export default {
   name: 'RegisterPage',
+
+  components: {
+    PrimaryButton
+  }
 };
 </script>
 

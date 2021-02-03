@@ -30,16 +30,18 @@
     </div>
 
     <template v-if="filteredMeetups && filteredMeetups.length">
-      <meetups-list
-        v-if="view === 'list'"
-        :meetups="filteredMeetups"
-        key="list"
-      ></meetups-list>
-      <meetups-calendar
-        v-else-if="view === 'calendar'"
-        :meetups="filteredMeetups"
-        key="calendar"
-      ></meetups-calendar>
+      <fade-transition>
+        <meetups-list
+          v-if="view === 'list'"
+          :meetups="filteredMeetups"
+          key="list"
+        />
+        <meetups-calendar
+          v-else-if="view === 'calendar'"
+          :meetups="filteredMeetups"
+          key="calendar"
+        />
+      </fade-transition>
     </template>
     <app-empty v-else>Митапов по заданным условиям не найдено...</app-empty>
   </div>
@@ -53,6 +55,7 @@ import PageTabs from '@/components/PageTabs';
 import FormCheck from '@/components/FormCheck';
 import AppEmpty from '@/components/AppEmpty';
 import AppIcon from '@/components/AppIcon';
+import FadeTransition from '@/components/FadeTransitionGroup';
 
 export default {
   name: 'MeetupsPage',
@@ -70,6 +73,7 @@ export default {
     FormCheck,
     AppEmpty,
     AppIcon,
+    FadeTransition,
   },
 
   props: {

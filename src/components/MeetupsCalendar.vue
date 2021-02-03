@@ -6,12 +6,12 @@
           <button
             @click="prevMonth"
             class="rangepicker__selector-control-left"
-          ></button>
+          />
           <div>{{ currentLocalDate }}</div>
           <button
             @click="nextMonth"
             class="rangepicker__selector-control-right"
-          ></button>
+          />
         </div>
       </div>
       <div class="rangepicker__date-grid">

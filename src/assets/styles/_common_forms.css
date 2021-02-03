@@ -61,26 +61,6 @@
     margin: 0 0 24px 0;
 }
 
-.form-section_append {
-    margin-top: 24px;
-}
-
-.form-section_append button {
-    box-shadow: none;
-    border: none;
-    background-color: transparent;
-    padding: 0;
-    outline: none;
-    color: var(--blue);
-    cursor: pointer;
-    font-size: 20px;
-    line-height: 28px;
-}
-
-.form-section_append button:hover {
-    text-decoration: underline;
-}
-
 .form__row {
     display: flex;
     flex-direction: column;

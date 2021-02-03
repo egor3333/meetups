@@ -2,49 +2,54 @@
   <form class="form meetup-form" @submit.prevent="handleSubmit">
     <div class="meetup-form__content">
       <fieldset class="form-section">
-        <div class="form-group">
-          <label class="form-label">Название</label>
-          <div class="input-group">
-            <input class="form-control" v-model="meetup_.title" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Дата</label>
-          <div class="input-group">
-            <input class="form-control" type="date" v-model="inputDate"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Место</label>
-          <div class="input-group">
-            <input class="form-control" v-model="meetup_.place" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Описание</label>
-          <textarea class="form-control" rows="3" v-model="meetup_.description"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Изображение</label>
+        <form-group label="Название">
+          <app-input
+            v-model="meetup_.title"
+            :multiline="false"
+          />
+        </form-group>
+        <form-group label="Дата">
+          <app-input
+            v-model="inputDate"
+            type="date"
+            :multiline="false"
+          />
+        </form-group>
+        <form-group label="Место">
+          <app-input
+            v-model="meetup_.place"
+            :multiline="false"
+          />
+        </form-group>
+        <form-group label="Описание">
+          <app-input
+            v-model="meetup_.description"
+            :multiline="true"
+            rows="3"
+          />
+        </form-group>
+        <form-group label="Изображение">
           <image-uploader v-model="meetup_.imageId" />
-        </div>
+        </form-group>
       </fieldset>
 
       <h3 class="form__section-title">Программа</h3>
 
-      <template v-for="(agendaItem, index) in meetup_.agenda">
-        <meetup-agenda-item-form
-          class="mb-3"
-          :key="agendaItem.id"
-          :agendaItem.sync="meetup_.agenda[index]"
-          @remove="removeAgendaItem(index)"
-        />
-      </template>
+      <fade-transition-group tag="div">
+        <template v-for="(agendaItem, index) in meetup_.agenda">
+          <meetup-agenda-item-form
+            class="mb-3"
+            :key="agendaItem.id"
+            :agendaItem.sync="meetup_.agenda[index]"
+            @remove="removeAgendaItem(index)"
+          />
+        </template>
+      </fade-transition-group>
 
       <div class="form-section_append">
-        <button type="button" data-test="addAgendaItem" @click="addAgendaItem">
+        <base-button @click="addAgendaItem">
           + Добавить этап программы
-        </button>
+        </base-button>
       </div>
     </div>
 
@@ -57,13 +62,12 @@
         >
           Отмена
         </router-link>
-        <button
-          class="button button_primary button_block"
+        <primary-button
+          :block="true"
           type="submit"
-          data-test="submit"
         >
           {{ submitText }}
-        </button>
+        </primary-button>
       </div>
     </div>
   </form>
@@ -71,8 +75,12 @@
 
 <script>
 import { cloneDeep } from 'lodash';
-import MeetupAgendaItemForm from './MeetupAgendaItemForm.vue';
+import { BaseButton, PrimaryButton } from './Buttons'
+import AppInput from './AppInput';
+import FormGroup from './FormGroup';
 import ImageUploader from './ImageUploader';
+import MeetupAgendaItemForm from './MeetupAgendaItemForm';
+import FadeTransitionGroup from './FadeTransitionGroup';
 
 function buildAgendaItem(startsAt = '00:00') {
   return {
@@ -91,8 +99,13 @@ export default {
   name: 'MeetupForm',
 
   components: {
+    BaseButton,
+    PrimaryButton,
+    AppInput,
+    FormGroup,
     ImageUploader,
     MeetupAgendaItemForm,
+    FadeTransitionGroup,
   },
 
   props: {
@@ -151,4 +164,24 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.form-section_append {
+    margin-top: 24px;
+}
+
+.form-section_append button {
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    outline: none;
+    color: var(--blue);
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.form-section_append button:hover {
+    text-decoration: underline;
+}
+</style>

@@ -1,31 +1,28 @@
 <template>
   <div class="form-section form-section_inner">
-    <button type="button" class="remove-button" @click="$emit('remove')">
-      <img src="../assets/icons/icon-trash.svg" alt="trash" />
-    </button>
+    <base-button class="remove-button" @click="$emit('remove')">
+      <app-icon icon="trash" />
+    </base-button>
 
-    <div class="form-group">
+    <form-group>
       <dropdown-button title="Тип" :options="$options.agendaItemTypes" v-model="agendaItem_.type" />
-    </div>
+    </form-group>
 
     <div class="form__row">
       <div class="form__col">
-        <div class="form-group">
-          <label class="form-label">Начало</label>
+        <form-group label="Начало">
           <app-input type="time" placeholder="00:00" v-model="agendaItem_.startsAt" />
-        </div>
+        </form-group>
       </div>
       <div class="form__col">
-        <div class="form-group">
-          <label class="form-label">Окончание</label>
+        <form-group label="Окончание">
           <app-input type="time" placeholder="00:00" v-model="agendaItem_.endsAt" />
-        </div>
+        </form-group>
       </div>
     </div>
 
     <template v-for="fieldItem in $options.fieldSpecifications[agendaItem_.type]">
-      <div class="form-group" :key="fieldItem.title">
-        <label class="form-label">{{ fieldItem.title }}</label>
+      <form-group :label="fieldItem.title" :key="fieldItem.title">
         <component
           :is="fieldItem.component"
           v-model="agendaItem_[fieldItem.field]"
@@ -35,7 +32,7 @@
             title: fieldItem.props.title
           }"
         />
-      </div>
+      </form-group>
     </template>
   </div>
 </template>
@@ -43,7 +40,10 @@
 <script>
 import moment from 'moment';
 import { cloneDeep } from 'lodash';
+import { BaseButton } from './Buttons';
 import AppInput from './AppInput';
+import FormGroup from './FormGroup';
+import AppIcon from './AppIcon';
 import DropdownButton from './DropdownButton';
 import {
   getAgendaItemsFieldSpecifications,
@@ -54,7 +54,13 @@ import {
 export default {
   name: 'MeetupAgendaItemForm',
 
-  components: { AppInput, DropdownButton },
+  components: {
+    BaseButton,
+    AppInput,
+    FormGroup,
+    AppIcon,
+    DropdownButton,
+  },
 
   agendaItemTypes: getAgendaItemTypes(),
   fieldSpecifications: getAgendaItemsFieldSpecifications(),
