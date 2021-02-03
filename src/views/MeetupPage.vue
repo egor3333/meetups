@@ -50,7 +50,7 @@
                 <secondary-button>Отменить участие</secondary-button>
               </li>
               <li>
-                <primary-button>Редактировать</primary-button>
+                <primary-button tag="router-link" :to="{ name: 'edit-meetup', params: { meetupId }}">Редактировать</primary-button>
               </li>
               <li>
                 <danger-button>Удалить</danger-button>
