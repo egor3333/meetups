@@ -86,14 +86,14 @@
 </template>
 
 <script>
-import { fetchMeetupById, getMeetupCoverLink } from "../common/api";
-import AppIcon from "../components/AppIcon";
+import { fetchMeetupById, getMeetupCoverLink } from "@/common/api";
+import AppIcon from "@/components/AppIcon";
 import {
   PrimaryButton,
   SecondaryButton,
   DangerButton
-} from "../components/Buttons";
-import FadeTransition from "../components/FadeTransition";
+} from "@/components/Buttons";
+import FadeTransition from "@/components/FadeTransition";
 
 export default {
   name: "MeetupPage",

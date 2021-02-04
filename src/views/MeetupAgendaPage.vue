@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import { getAgendaIconsMap, getAgendaItemTypes } from "../common/data";
-import AppIcon from "../components/AppIcon";
+import { getAgendaIconsMap, getAgendaItemTypes } from "@/common/data";
+import AppIcon from "@/components/AppIcon";
 
 export default {
   name: "MeetupAgendaPage",

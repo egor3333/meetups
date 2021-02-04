@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import MeetupListItem from "./MeetupsListItem";
+import MeetupListItem from "@/components/MeetupsListItem";
 
 export default {
   name: "MeetupsList",

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import MeetupForm from "../components/MeetupForm";
+import MeetupForm from "@/components/MeetupForm";
 
 export default {
   name: "CreateMeetup",

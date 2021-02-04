@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { PrimaryButton } from "../components/Buttons";
+import { PrimaryButton } from "@/components/Buttons";
 
 export default {
   name: "LoginPage",

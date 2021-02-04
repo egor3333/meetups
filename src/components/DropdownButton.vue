@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import AppIcon from "./AppIcon";
+import AppIcon from "@/components/AppIcon";
 
 export default {
   name: "DropdownButton",

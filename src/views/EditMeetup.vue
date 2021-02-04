@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { fetchMeetupById } from "../common/api";
-import MeetupForm from "../components/MeetupForm";
+import { fetchMeetupById } from "@/common/api";
+import MeetupForm from "@/components/MeetupForm";
 
 export default {
   name: "EditMeetup",

@@ -58,12 +58,12 @@
 
 <script>
 import { cloneDeep, isEqual } from "lodash";
-import { BaseButton, PrimaryButton } from "./Buttons";
-import AppInput from "./AppInput";
-import FormGroup from "./FormGroup";
-import ImageUploader from "./ImageUploader";
-import MeetupAgendaItemForm from "./MeetupAgendaItemForm";
-import FadeTransitionGroup from "./FadeTransitionGroup";
+import { BaseButton, PrimaryButton } from "@/components/Buttons";
+import AppInput from "@/components/AppInput";
+import FormGroup from "@/components/FormGroup";
+import ImageUploader from "@/components/ImageUploader";
+import MeetupAgendaItemForm from "@/components/MeetupAgendaItemForm";
+import FadeTransitionGroup from "@/components/FadeTransitionGroup";
 
 function buildAgendaItem(startsAt = "00:00") {
   return {

@@ -54,11 +54,11 @@
 <script>
 import moment from "moment";
 import { cloneDeep } from "lodash";
-import { BaseButton } from "./Buttons";
-import AppInput from "./AppInput";
-import FormGroup from "./FormGroup";
-import AppIcon from "./AppIcon";
-import DropdownButton from "./DropdownButton";
+import { BaseButton } from "@/components/Buttons";
+import AppInput from "@/components/AppInput";
+import FormGroup from "@/components/FormGroup";
+import AppIcon from "@/components/AppIcon";
+import DropdownButton from "@/components/DropdownButton";
 import {
   getAgendaItemsFieldSpecifications,
   getAgendaItemTypes,
