@@ -24,7 +24,10 @@
           </div>
         </div>
         <div class="form-group form-group_inline">
-          <page-tabs :selected="view" :handleSelected="handlePageTabs"></page-tabs>
+          <page-tabs
+            :selected="view"
+            :handleSelected="handlePageTabs"
+          ></page-tabs>
         </div>
       </div>
     </div>
@@ -48,22 +51,22 @@
 </template>
 
 <script>
-import { fetchMeetups } from '@/common/api';
-import MeetupsList from '@/components/MeetupsList';
-import MeetupsCalendar from '@/components/MeetupsCalendar';
-import PageTabs from '@/components/PageTabs';
-import FormCheck from '@/components/FormCheck';
-import AppEmpty from '@/components/AppEmpty';
-import AppIcon from '@/components/AppIcon';
-import FadeTransition from '@/components/FadeTransitionGroup';
+import { fetchMeetups } from "@/common/api";
+import MeetupsList from "@/components/MeetupsList";
+import MeetupsCalendar from "@/components/MeetupsCalendar";
+import PageTabs from "@/components/PageTabs";
+import FormCheck from "@/components/FormCheck";
+import AppEmpty from "@/components/AppEmpty";
+import AppIcon from "@/components/AppIcon";
+import FadeTransition from "@/components/FadeTransitionGroup";
 
 export default {
-  name: 'MeetupsPage',
+  name: "MeetupsPage",
 
   dateFilterOptions: [
-    { text: 'Все', value: 'all' },
-    { text: 'Прошедшие', value: 'past' },
-    { text: 'Ожидаемые', value: 'future' },
+    { text: "Все", value: "all" },
+    { text: "Прошедшие", value: "past" },
+    { text: "Ожидаемые", value: "future" }
   ],
 
   components: {
@@ -73,19 +76,19 @@ export default {
     FormCheck,
     AppEmpty,
     AppIcon,
-    FadeTransition,
+    FadeTransition
   },
 
   props: {
     date: String,
     participation: String,
     search: String,
-    view: String,
+    view: String
   },
 
   data() {
     return {
-      rawMeetups: [],
+      rawMeetups: []
     };
   },
 
@@ -95,50 +98,50 @@ export default {
 
   computed: {
     meetups() {
-      return this.rawMeetups.map((meetup) => ({
+      return this.rawMeetups.map(meetup => ({
         ...meetup,
         cover: meetup.imageId
           ? `https://course-vue.javascript.ru/api/images/${meetup.imageId}`
           : undefined,
         coverStyle: meetup.imageId
           ? {
-              '--bg-url': `url('https://course-vue.javascript.ru/api/images/${meetup.imageId}')`,
+              "--bg-url": `url('https://course-vue.javascript.ru/api/images/${meetup.imageId}')`
             }
           : {},
         date: new Date(meetup.date),
         localDate: new Date(meetup.date).toLocaleString(navigator.language, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
+          year: "numeric",
+          month: "long",
+          day: "numeric"
         }),
-        dateOnlyString: new Date(meetup.date).toISOString().split('T'),
+        dateOnlyString: new Date(meetup.date).toISOString().split("T")
       }));
     },
 
     filteredMeetups() {
-      const dateFilter = (meetup) =>
-        this.date === 'all' ||
-        (this.date === 'past' && new Date(meetup.date) <= new Date()) ||
-        (this.date === 'future' && new Date(meetup.date) > new Date());
+      const dateFilter = meetup =>
+        this.date === "all" ||
+        (this.date === "past" && new Date(meetup.date) <= new Date()) ||
+        (this.date === "future" && new Date(meetup.date) > new Date());
 
-      const participationFilter = (meetup) =>
-        this.participation === 'all' ||
-        (this.participation === 'organizing' && meetup.organizing) ||
-        (this.participation === 'attending' && meetup.attending);
+      const participationFilter = meetup =>
+        this.participation === "all" ||
+        (this.participation === "organizing" && meetup.organizing) ||
+        (this.participation === "attending" && meetup.attending);
 
-      const searchFilter = (meetup) =>
+      const searchFilter = meetup =>
         [meetup.title, meetup.description, meetup.place, meetup.organizer]
-          .join(' ')
+          .join(" ")
           .toLowerCase()
           .includes(this.search.toLowerCase());
 
       return this.meetups.filter(
-        (meetup) =>
+        meetup =>
           dateFilter(meetup) &&
           participationFilter(meetup) &&
-          searchFilter(meetup),
+          searchFilter(meetup)
       );
-    },
+    }
   },
 
   methods: {
@@ -146,12 +149,12 @@ export default {
       this.rawMeetups = await fetchMeetups();
     },
     handleSearchInput(e) {
-      this.$emit('update:search', e.target.value)
+      this.$emit("update:search", e.target.value);
     },
     handlePageTabs(v) {
-      this.$emit('update:view', v)
+      this.$emit("update:view", v);
     }
-  },
+  }
 };
 </script>
 

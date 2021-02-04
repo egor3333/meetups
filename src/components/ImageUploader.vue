@@ -2,7 +2,7 @@
   <div class="image-uploader">
     <label
       class="image-uploader__preview"
-      :class="{'image-uploader__preview-loading': isLoading}"
+      :class="{ 'image-uploader__preview-loading': isLoading }"
       :style="imageUrl"
       @click="handleClick"
     >
@@ -20,15 +20,15 @@
 </template>
 
 <script>
-import { ImageService } from '@/common/api';
+import { ImageService } from "@/common/api";
 
 export default {
-  name: 'ImageUploader',
+  name: "ImageUploader",
 
   data() {
     return {
       isLoading: false
-    }
+    };
   },
 
   props: {
@@ -38,35 +38,37 @@ export default {
   },
 
   model: {
-    prop: 'imageId',
-    event: 'change'
+    prop: "imageId",
+    event: "change"
   },
 
   computed: {
     imageText() {
-      if (this.isLoading) { return 'Загрузка...'}
+      if (this.isLoading) {
+        return "Загрузка...";
+      }
 
-      return this.imageId ? 'Удалить изображение' : 'Загрузить изображение'
+      return this.imageId ? "Удалить изображение" : "Загрузить изображение";
     },
     imageUrl() {
-      let url = ImageService.getImageURL(this.imageId)
-      return url ? { '--bg-image': `url('${url}')` } : {}
+      let url = ImageService.getImageURL(this.imageId);
+      return url ? { "--bg-image": `url('${url}')` } : {};
     }
   },
 
   methods: {
     handleChange(e) {
-      this.isLoading = true
+      this.isLoading = true;
       ImageService.uploadImage(...e.target.files).then(res => {
-        this.isLoading = false
-        this.$emit('change', res.id)
-      })
+        this.isLoading = false;
+        this.$emit("change", res.id);
+      });
     },
     handleClick(e) {
       if (this.imageId) {
-        this.$emit('change', null)
-        this.$refs.input.value = null
-        e.preventDefault()
+        this.$emit("change", null);
+        this.$refs.input.value = null;
+        e.preventDefault();
       }
     }
   }
@@ -103,7 +105,7 @@ export default {
 
 .image-uploader .image-uploader__preview > span {
   color: var(--white);
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-size: 20px;
   line-height: 28px;

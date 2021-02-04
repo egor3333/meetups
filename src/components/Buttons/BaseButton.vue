@@ -2,7 +2,7 @@
   <component
     :is="tag"
     class="button"
-    :class="{ 'button_block': block }"
+    :class="{ button_block: block }"
     v-on="$listeners"
     v-bind="$attrs"
   >
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'BaseButton',
+  name: "BaseButton",
 
   props: {
     block: {
@@ -20,9 +20,9 @@ export default {
     },
     tag: {
       type: String,
-      default: 'button',
+      default: "button",
       validator: v => {
-        return ['button', 'a', 'router-link'].includes(v)
+        return ["button", "a", "router-link"].includes(v);
       }
     }
   }

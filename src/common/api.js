@@ -15,7 +15,7 @@ export function getMeetupCoverLink(meetup) {
  * @return {Promise}
  */
 export async function fetchMeetups() {
-  return fetch(`${API_URL}/meetups`).then((res) => res.json());
+  return fetch(`${API_URL}/meetups`).then(res => res.json());
 }
 
 /**
@@ -23,7 +23,7 @@ export async function fetchMeetups() {
  * @return {Promise}
  */
 export async function fetchMeetupById(id) {
-  return fetch(`${API_URL}/meetups/${id}`).then((res) => res.json());
+  return fetch(`${API_URL}/meetups/${id}`).then(res => res.json());
 }
 
 export const ImageService = {
@@ -35,7 +35,7 @@ export const ImageService = {
    */
   // eslint-disable-next-line no-unused-vars
   uploadImage(file) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       setTimeout(() => {
         resolve({ id: 1 });
       }, 500);
@@ -49,5 +49,5 @@ export const ImageService = {
    */
   getImageURL(id) {
     return id !== null ? `${API_URL}/images/${id}` : null;
-  },
+  }
 };

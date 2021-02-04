@@ -5,23 +5,37 @@
     </base-button>
 
     <form-group>
-      <dropdown-button title="Тип" :options="$options.agendaItemTypes" v-model="agendaItem_.type" />
+      <dropdown-button
+        title="Тип"
+        :options="$options.agendaItemTypes"
+        v-model="agendaItem_.type"
+      />
     </form-group>
 
     <div class="form__row">
       <div class="form__col">
         <form-group label="Начало">
-          <app-input type="time" placeholder="00:00" v-model="agendaItem_.startsAt" />
+          <app-input
+            type="time"
+            placeholder="00:00"
+            v-model="agendaItem_.startsAt"
+          />
         </form-group>
       </div>
       <div class="form__col">
         <form-group label="Окончание">
-          <app-input type="time" placeholder="00:00" v-model="agendaItem_.endsAt" />
+          <app-input
+            type="time"
+            placeholder="00:00"
+            v-model="agendaItem_.endsAt"
+          />
         </form-group>
       </div>
     </div>
 
-    <template v-for="fieldItem in $options.fieldSpecifications[agendaItem_.type]">
+    <template
+      v-for="fieldItem in $options.fieldSpecifications[agendaItem_.type]"
+    >
       <form-group :label="fieldItem.title" :key="fieldItem.title">
         <component
           :is="fieldItem.component"
@@ -38,28 +52,28 @@
 </template>
 
 <script>
-import moment from 'moment';
-import { cloneDeep } from 'lodash';
-import { BaseButton } from './Buttons';
-import AppInput from './AppInput';
-import FormGroup from './FormGroup';
-import AppIcon from './AppIcon';
-import DropdownButton from './DropdownButton';
+import moment from "moment";
+import { cloneDeep } from "lodash";
+import { BaseButton } from "./Buttons";
+import AppInput from "./AppInput";
+import FormGroup from "./FormGroup";
+import AppIcon from "./AppIcon";
+import DropdownButton from "./DropdownButton";
 import {
   getAgendaItemsFieldSpecifications,
   getAgendaItemTypes,
   getAgendaItemLanguageOptions
-} from '@/common/data';
+} from "@/common/data";
 
 export default {
-  name: 'MeetupAgendaItemForm',
+  name: "MeetupAgendaItemForm",
 
   components: {
     BaseButton,
     AppInput,
     FormGroup,
     AppIcon,
-    DropdownButton,
+    DropdownButton
   },
 
   agendaItemTypes: getAgendaItemTypes(),
@@ -76,31 +90,37 @@ export default {
   data() {
     return {
       agendaItem_: cloneDeep(this.agendaItem)
-    }
+    };
   },
 
   watch: {
-    'agendaItem_.startsAt': {
+    "agendaItem_.startsAt": {
       handler(newStartsAt, prevStartsAt) {
-        if (this.agendaItem_.endsAt !== '00:00') {
-          let startsAtMinutesDif = moment.duration(newStartsAt).asMinutes() - moment.duration(prevStartsAt).asMinutes()
-          let endsAtMinutes = moment.duration(this.agendaItem_.endsAt).asMinutes()
-          let endsAtMinutesDif = moment.utc(
-            moment
-              .duration(startsAtMinutesDif + endsAtMinutes, "minutes")
-              .asMilliseconds()
-          ).format("HH:mm")
+        if (this.agendaItem_.endsAt !== "00:00") {
+          let startsAtMinutesDif =
+            moment.duration(newStartsAt).asMinutes() -
+            moment.duration(prevStartsAt).asMinutes();
+          let endsAtMinutes = moment
+            .duration(this.agendaItem_.endsAt)
+            .asMinutes();
+          let endsAtMinutesDif = moment
+            .utc(
+              moment
+                .duration(startsAtMinutesDif + endsAtMinutes, "minutes")
+                .asMilliseconds()
+            )
+            .format("HH:mm");
 
-          this.agendaItem_.endsAt = endsAtMinutesDif
+          this.agendaItem_.endsAt = endsAtMinutesDif;
         }
 
-        this.agendaItem_.startsAt = newStartsAt
+        this.agendaItem_.startsAt = newStartsAt;
       }
     },
     agendaItem_: {
       deep: true,
       handler(v) {
-        this.$emit('update:agendaItem', v)
+        this.$emit("update:agendaItem", v);
       }
     }
   }

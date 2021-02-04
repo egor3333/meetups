@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import { fetchMeetupById } from '../common/api'
-import MeetupForm from '../components/MeetupForm'
+import { fetchMeetupById } from "../common/api";
+import MeetupForm from "../components/MeetupForm";
 
 export default {
-  name: 'EditMeetup',
+  name: "EditMeetup",
 
   components: {
     MeetupForm
@@ -25,13 +25,13 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     fetchMeetupById(to.params.meetupId)
-      .then((meetup) => {
-        next((vm) => {
+      .then(meetup => {
+        next(vm => {
           vm.setMeetup(meetup);
         });
       })
       .catch(() => {
-        next('/meetups');
+        next("/meetups");
       });
   },
 
@@ -44,9 +44,9 @@ export default {
   methods: {
     setMeetup(meetup) {
       this.meetup = meetup;
-    },
-  },
-}
+    }
+  }
+};
 </script>
 
 <style scoped></style>

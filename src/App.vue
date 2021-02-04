@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import BaseLayout from './components/BaseLayout'
+import BaseLayout from "./components/BaseLayout";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     BaseLayout
   }
-}
+};
 </script>

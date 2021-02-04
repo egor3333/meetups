@@ -38,17 +38,17 @@
 </template>
 
 <script>
-import AppIcon from './AppIcon';
+import AppIcon from "./AppIcon";
 
 export default {
-  name: 'MeetupsListItem',
+  name: "MeetupsListItem",
   components: { AppIcon },
   props: {
     meetup: {
       required: true,
-      type: Object,
-    },
-  },
+      type: Object
+    }
+  }
 };
 </script>
 

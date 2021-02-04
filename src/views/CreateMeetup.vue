@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import MeetupForm from '../components/MeetupForm'
+import MeetupForm from "../components/MeetupForm";
 
 export default {
-  name: 'CreateMeetup',
+  name: "CreateMeetup",
 
   components: {
     MeetupForm
@@ -25,13 +25,13 @@ export default {
     return {
       meetup: {
         id: 0,
-        title: '',
-        description: '',
+        title: "",
+        description: "",
         imageId: null,
         date: new Date(),
-        place: '',
-        agenda: [],
-      },
+        place: "",
+        agenda: []
+      }
     };
   },
 
@@ -39,8 +39,8 @@ export default {
     handleSubmit(meetup) {
       this.meetup = meetup;
     }
-  },
-}
+  }
+};
 </script>
 
 <style scoped></style>

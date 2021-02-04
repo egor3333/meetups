@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import TheHeader from './TheHeader.vue'
-import TheFooter from './TheFooter.vue'
+import TheHeader from "./TheHeader.vue";
+import TheFooter from "./TheFooter.vue";
 
 export default {
-  name: 'BaseLayout',
+  name: "BaseLayout",
 
   components: {
     TheHeader,

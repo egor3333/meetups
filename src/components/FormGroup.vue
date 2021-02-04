@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group" :class="{'form-group_inline': inline}">
+  <div class="form-group" :class="{ 'form-group_inline': inline }">
     <label v-if="label" class="form-label">{{ label }}</label>
     <slot />
   </div>
@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'FormGroup',
+  name: "FormGroup",
 
   props: {
     inline: {

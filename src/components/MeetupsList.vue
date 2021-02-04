@@ -9,21 +9,21 @@
 </template>
 
 <script>
-import MeetupListItem from './MeetupsListItem';
+import MeetupListItem from "./MeetupsListItem";
 
 export default {
-  name: 'MeetupsList',
+  name: "MeetupsList",
 
   props: {
     meetups: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
 
   components: {
-    MeetupListItem,
-  },
+    MeetupListItem
+  }
 };
 </script>
 

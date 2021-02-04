@@ -20,21 +20,21 @@
 
 <script>
 export default {
-  name: 'FormCheck',
+  name: "FormCheck",
 
   props: {
     options: {
       type: Array,
-      required: true,
+      required: true
     },
     value: {
-      type: String,
+      type: String
     },
     name: {
       type: String,
-      default: () => Math.random().toString(),
-    },
-  },
+      default: () => Math.random().toString()
+    }
+  }
 };
 </script>
 

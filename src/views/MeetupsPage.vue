@@ -65,8 +65,8 @@ export default {
     },
     clearDefaultParams(q) {
       return Object.keys(q).reduce(
-        (acc, i) => q[i] !== this.$options.defaultData[i]
-          ? { ...acc, [i]: q[i] } : acc,
+        (acc, i) =>
+          q[i] !== this.$options.defaultData[i] ? { ...acc, [i]: q[i] } : acc,
         {}
       );
     },

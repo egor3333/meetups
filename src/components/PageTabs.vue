@@ -4,7 +4,7 @@
       type="button"
       class="page-tabs__tab"
       :class="{
-        'page-tabs__tab_active': selected === '' || selected === 'list',
+        'page-tabs__tab_active': selected === '' || selected === 'list'
       }"
       @click="handleSelected('list')"
     >
@@ -46,12 +46,12 @@
 
 <script>
 export default {
-  name: 'PageTabs',
+  name: "PageTabs",
 
   props: {
     selected: String,
     handleSelected: Function
-  },
+  }
 };
 </script>
 

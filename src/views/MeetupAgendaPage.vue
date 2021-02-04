@@ -1,12 +1,20 @@
 <template>
   <div v-if="meetup_.agenda" class="meetup-agenda">
-    <div v-for="agenda in meetup_.agenda" :key="agenda.id" class="meetup-agenda__item">
+    <div
+      v-for="agenda in meetup_.agenda"
+      :key="agenda.id"
+      class="meetup-agenda__item"
+    >
       <div class="meetup-agenda__item-col">
         <app-icon :icon="agenda.iconType" />
       </div>
-      <div class="meetup-agenda__item-col">{{ agenda.startsAt }} - {{ agenda.endsAt }}</div>
       <div class="meetup-agenda__item-col">
-        <h5 class="meetup-agenda__title">{{ agenda.title ? agenda.title : agenda.defaultTitle }}</h5>
+        {{ agenda.startsAt }} - {{ agenda.endsAt }}
+      </div>
+      <div class="meetup-agenda__item-col">
+        <h5 class="meetup-agenda__title">
+          {{ agenda.title ? agenda.title : agenda.defaultTitle }}
+        </h5>
         <p v-if="agenda === 'talk'">
           <span>{{ agenda.speaker }}</span>
           <span class="meetup-agenda__dot"></span>
@@ -19,11 +27,11 @@
 </template>
 
 <script>
-import { getAgendaIconsMap, getAgendaItemTypes } from '../common/data';
-import AppIcon from '../components/AppIcon';
+import { getAgendaIconsMap, getAgendaItemTypes } from "../common/data";
+import AppIcon from "../components/AppIcon";
 
 export default {
-  name: 'MeetupAgendaPage',
+  name: "MeetupAgendaPage",
 
   props: {
     meetup: Object
@@ -39,19 +47,25 @@ export default {
 
   computed: {
     meetup_() {
-      if(!this.meetup) { return null }
+      if (!this.meetup) {
+        return null;
+      }
 
       return {
         ...this.meetup,
-        agenda: this.meetup.agenda ? this.meetup.agenda.map(agenda => ({
-          ...agenda,
-          iconType: this.$options.agendaItemIcons[agenda.type],
-          defaultTitle: this.$options.agendaItemTypes.find(i => i.value === agenda.type).value
-        })) : []
-      }
+        agenda: this.meetup.agenda
+          ? this.meetup.agenda.map(agenda => ({
+              ...agenda,
+              iconType: this.$options.agendaItemIcons[agenda.type],
+              defaultTitle: this.$options.agendaItemTypes.find(
+                i => i.value === agenda.type
+              ).value
+            }))
+          : []
+      };
     }
   }
-}
+};
 </script>
 
 <style scoped></style>

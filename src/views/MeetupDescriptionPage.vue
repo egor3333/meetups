@@ -3,13 +3,13 @@
 </template>
 
 <script>
-  export default {
-    name: 'MeetupDescriptionPage',
+export default {
+  name: "MeetupDescriptionPage",
 
-    props: {
-      meetup: Object
-    }
+  props: {
+    meetup: Object
   }
+};
 </script>
 
 <style scoped></style>

@@ -4,8 +4,8 @@ module.exports = {
     proxy: {
       [process.env.VUE_APP_API_URL]: {
         target: process.env.API_PROXY_TARGET,
-        changeOrigin: true,
-      },
-    },
-  },
+        changeOrigin: true
+      }
+    }
+  }
 };

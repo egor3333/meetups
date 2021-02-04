@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="input-group"
-    :class="inputGroupStyles"
-  >
+  <div class="input-group" :class="inputGroupStyles">
     <slot name="left-icon" />
 
     <component
@@ -20,7 +17,7 @@
 
 <script>
 export default {
-  name: 'AppInput',
+  name: "AppInput",
 
   inheritAttrs: false,
 
@@ -40,47 +37,45 @@ export default {
   },
 
   model: {
-    prop: 'value',
-    event: 'input'
+    prop: "value",
+    event: "input"
   },
 
   computed: {
     inputStyles() {
       return {
-        'form-control_rounded': this.rounded,
-        'form-control_sm': this.small
-      }
+        "form-control_rounded": this.rounded,
+        "form-control_sm": this.small
+      };
     },
     inputGroupStyles() {
-      let leftIcon = this.$slots['left-icon']
-      let rightIcon  = this.$slots['right-icon']
+      let leftIcon = this.$slots["left-icon"];
+      let rightIcon = this.$slots["right-icon"];
 
       return {
-        'input-group_icon': leftIcon || rightIcon,
-        'input-group_icon-left': leftIcon,
-        'input-group_icon-right': rightIcon
-      }
+        "input-group_icon": leftIcon || rightIcon,
+        "input-group_icon-left": leftIcon,
+        "input-group_icon-right": rightIcon
+      };
     },
     isMultiline() {
-      return this.multiline
-        ? 'textarea'
-        : 'input'
+      return this.multiline ? "textarea" : "input";
     },
     listeners() {
       return {
         ...this.$listeners,
         input: this.handleInput,
         change: this.handleChange
-      }
+      };
     }
   },
 
   methods: {
     handleInput(e) {
-      this.$emit('input', e.target.value)
+      this.$emit("input", e.target.value);
     },
     handleChange(e) {
-      this.$emit('change', e.target.value)
+      this.$emit("change", e.target.value);
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="page page_onboarding">
-    <form class="form" @submit.prevent >
+    <form class="form" @submit.prevent>
       <div class="form-group">
         <label class="form-label">Email</label>
         <div class="input-group">
@@ -26,12 +26,15 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="checkbox"><input type="checkbox" /> Я согласен с условиями <span></span></label>
+        <label class="checkbox"
+          ><input type="checkbox"/> Я согласен с условиями <span></span
+        ></label>
       </div>
       <div class="form__buttons">
         <primary-button type="submit">Зарегистрироваться</primary-button>
       </div>
-      <div class="form__append">Уже есть аккаунт?
+      <div class="form__append">
+        Уже есть аккаунт?
         <router-link to="/login" class="link">Войдите</router-link>
       </div>
     </form>
@@ -39,10 +42,10 @@
 </template>
 
 <script>
-import { PrimaryButton } from '../components/Buttons'
+import { PrimaryButton } from "../components/Buttons";
 
 export default {
-  name: 'RegisterPage',
+  name: "RegisterPage",
 
   components: {
     PrimaryButton
