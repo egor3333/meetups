@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { cloneDeep } from 'lodash';
+import { cloneDeep, isEqual } from 'lodash';
 import { BaseButton, PrimaryButton } from './Buttons'
 import AppInput from './AppInput';
 import FormGroup from './FormGroup';
@@ -121,8 +121,27 @@ export default {
 
   data() {
     return {
-      meetup_: cloneDeep(this.meetup)
+      meetup_: null
     }
+  },
+
+  watch: {
+    meetup: {
+      deep: true,
+      immediate: true,
+      handler(newValue) {
+        if (!isEqual(newValue, this.meetup_)) {
+          this.meetup_ = cloneDeep(this.meetup);
+        }
+      },
+    },
+
+    meetup_: {
+      deep: true,
+      handler(newValue) {
+        this.$emit('update:meetup', cloneDeep(newValue));
+      },
+    },
   },
 
   computed: {

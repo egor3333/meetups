@@ -96,7 +96,6 @@ export default {
     fetchMeetupById(to.params.meetupId)
       .then((meetup) => {
         next((vm) => {
-          console.log(meetup)
           vm.setMeetup(meetup);
         });
       })

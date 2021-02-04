@@ -4,7 +4,7 @@
       <h2 class="page__title">Создание митапа</h2>
       <meetup-form
         :meetup="meetup"
-        submit-text="Сабмит"
+        submit-text="Создать"
         @submit="handleSubmit"
       />
     </div>
