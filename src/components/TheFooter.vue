@@ -13,15 +13,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.footer {
-  padding: 100px 0 60px;
-  text-align: center;
-}
-
-.container {
-  max-width: 1008px;
-  width: 100%;
-  margin: 0 auto;
-}
-</style>
+<style scoped></style>
