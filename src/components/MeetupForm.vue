@@ -3,13 +3,13 @@
     <div class="meetup-form__content">
       <fieldset class="form-section">
         <form-group label="Название">
-          <app-input v-model="meetup_.title" :multiline="false" />
+          <app-input v-model="meetup_.title" />
         </form-group>
         <form-group label="Дата">
-          <app-input v-model="inputDate" type="date" :multiline="false" />
+          <app-input v-model="inputDate" type="date" />
         </form-group>
         <form-group label="Место">
-          <app-input v-model="meetup_.place" :multiline="false" />
+          <app-input v-model="meetup_.place" />
         </form-group>
         <form-group label="Описание">
           <app-input v-model="meetup_.description" :multiline="true" rows="3" />

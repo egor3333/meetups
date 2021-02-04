@@ -29,7 +29,8 @@ export default {
       type: Boolean
     },
     multiline: {
-      type: Boolean
+      type: Boolean,
+      default: false
     },
     value: {
       type: String
