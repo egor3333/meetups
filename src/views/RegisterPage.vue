@@ -1,30 +1,18 @@
 <template>
   <div class="page page_onboarding">
     <form class="form" @submit.prevent>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <div class="input-group">
-          <input type="email" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Имя</label>
-        <div class="input-group">
-          <input type="text" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Пароль</label>
-        <div class="input-group">
-          <input type="password" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Повтор пароля</label>
-        <div class="input-group">
-          <input type="password" class="form-control" />
-        </div>
-      </div>
+      <form-group label="Email">
+        <app-input type="email" placeholder="demo@email" />
+      </form-group>
+      <form-group label="Имя">
+        <app-input type="text" />
+      </form-group>
+      <form-group label="Пароль">
+        <app-input type="password" />
+      </form-group>
+      <form-group label="Повтор пароля">
+        <app-input type="password" />
+      </form-group>
       <div class="form-group">
         <label class="checkbox"
           ><input type="checkbox"/> Я согласен с условиями <span></span
@@ -43,12 +31,16 @@
 
 <script>
 import { PrimaryButton } from "@/components/Buttons";
+import AppInput from "@/components/AppInput";
+import FormGroup from "@/components/FormGroup";
 
 export default {
   name: "RegisterPage",
 
   components: {
-    PrimaryButton
+    PrimaryButton,
+    AppInput,
+    FormGroup
   }
 };
 </script>

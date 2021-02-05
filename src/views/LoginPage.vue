@@ -1,18 +1,12 @@
 <template>
   <div class="page page_onboarding">
     <form class="form" @submit.prevent>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <div class="input-group">
-          <input type="email" placeholder="demo@email" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Пароль</label>
-        <div class="input-group">
-          <input type="password" placeholder="password" class="form-control" />
-        </div>
-      </div>
+      <form-group label="Email">
+        <app-input type="email" placeholder="demo@email" />
+      </form-group>
+      <form-group label="Пароль">
+        <app-input type="password" placeholder="password" />
+      </form-group>
       <div class="form__buttons">
         <primary-button type="submit" :block="true">Войти</primary-button>
       </div>
@@ -26,12 +20,16 @@
 
 <script>
 import { PrimaryButton } from "@/components/Buttons";
+import AppInput from "@/components/AppInput";
+import FormGroup from "@/components/FormGroup";
 
 export default {
   name: "LoginPage",
 
   components: {
-    PrimaryButton
+    PrimaryButton,
+    AppInput,
+    FormGroup
   }
 };
 </script>
