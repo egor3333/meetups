@@ -13,11 +13,9 @@
       <form-group label="Повтор пароля">
         <app-input type="password" />
       </form-group>
-      <div class="form-group">
-        <label class="checkbox"
-          ><input type="checkbox"/> Я согласен с условиями <span></span
-        ></label>
-      </div>
+      <form-group>
+        <app-checkbox>Я согласен с условиями</app-checkbox>
+      </form-group>
       <div class="form__buttons">
         <primary-button type="submit">Зарегистрироваться</primary-button>
       </div>
@@ -32,6 +30,7 @@
 <script>
 import { PrimaryButton } from "@/components/Buttons";
 import AppInput from "@/components/AppInput";
+import AppCheckbox from "@/components/AppCheckbox";
 import FormGroup from "@/components/FormGroup";
 
 export default {
@@ -40,6 +39,7 @@ export default {
   components: {
     PrimaryButton,
     AppInput,
+    AppCheckbox,
     FormGroup
   }
 };
