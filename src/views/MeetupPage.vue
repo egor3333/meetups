@@ -45,36 +45,26 @@
             </div>
           </div>
           <div class="meetup__aside">
-            <ul class="info-list">
-              <li>
-                <app-icon icon="user" class="info-list__icon" />
-                {{ meetup.organizer }}
-              </li>
-              <li>
-                <app-icon icon="map" class="info-list__icon" />
-                {{ meetup.place }}
-              </li>
-              <li>
-                <app-icon icon="cal-lg" class="info-list__icon" />
-                <time :datetime="meetupLocalDate">{{ meetupLocalDate }}</time>
-              </li>
-              <li>
-                <primary-button>Участвовать</primary-button>
-              </li>
-              <li>
-                <secondary-button>Отменить участие</secondary-button>
-              </li>
-              <li>
-                <primary-button
-                  tag="router-link"
-                  :to="{ name: 'edit-meetup', params: { meetupId } }"
-                  >Редактировать</primary-button
-                >
-              </li>
-              <li>
-                <danger-button>Удалить</danger-button>
-              </li>
-            </ul>
+            <info-list :meetup="meetup" >
+              <template #default>
+                <li>
+                  <primary-button>Участвовать</primary-button>
+                </li>
+                <li>
+                  <secondary-button>Отменить участие</secondary-button>
+                </li>
+                <li>
+                  <primary-button
+                    tag="router-link"
+                    :to="{ name: 'edit-meetup', params: { meetupId } }"
+                    >Редактировать</primary-button
+                  >
+                </li>
+                <li>
+                  <danger-button>Удалить</danger-button>
+                </li>
+              </template>
+            </info-list>
           </div>
         </div>
       </div>
@@ -87,12 +77,12 @@
 
 <script>
 import { fetchMeetupById, getMeetupCoverLink } from "@/common/api";
-import AppIcon from "@/components/AppIcon";
 import {
   PrimaryButton,
   SecondaryButton,
   DangerButton
 } from "@/components/Buttons";
+import InfoList from "@/components/InfoList";
 import FadeTransition from "@/components/FadeTransition";
 
 export default {
@@ -106,10 +96,10 @@ export default {
   },
 
   components: {
-    AppIcon,
     PrimaryButton,
     SecondaryButton,
     DangerButton,
+    InfoList,
     FadeTransition
   },
 
@@ -143,13 +133,6 @@ export default {
   },
 
   computed: {
-    meetupLocalDate() {
-      return new Date(this.meetup.date).toLocaleString(navigator.language, {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-    },
     coverStyle() {
       return this.meetup.imageId
         ? { "--bg-url": `url('${getMeetupCoverLink(this.meetup)}')` }
@@ -165,4 +148,85 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.content-tabs {
+  margin: 0;
+}
+
+.content-tabs__nav {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.content-tabs__nav:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--grey-2);
+}
+
+.content-tabs__tab {
+  display: inline-flex;
+  padding: 10px 0;
+  font-weight: 400;
+  font-size: 18px;
+  text-decoration: none;
+  line-height: 28px;
+  color: var(--grey-8);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  margin-right: 18px;
+  transition: 0.2s all;
+  box-shadow: none;
+  background-color: transparent;
+  outline: none;
+  position: relative;
+  z-index: 1;
+}
+
+.content-tabs__tab:hover,
+.content-tabs__tab.content-tabs__tab_active {
+  border-bottom-color: var(--blue);
+  color: var(--blue);
+}
+
+.meetup-cover {
+  --bg-url: var(--default-cover);
+  background-size: cover;
+  background-position: center;
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    var(--bg-url);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 410px;
+  max-width: 1216px;
+  margin: 0 auto;
+}
+
+.meetup-cover__title {
+  color: var(--white);
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 48px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+@media all and (min-width: 992px) {
+  .meetup-cover__title {
+    font-size: 72px;
+    line-height: 84px;
+  }
+}
+</style>

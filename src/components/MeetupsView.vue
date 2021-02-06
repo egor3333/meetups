@@ -107,14 +107,7 @@ export default {
           ? {
               "--bg-url": `url('https://course-vue.javascript.ru/api/images/${meetup.imageId}')`
             }
-          : {},
-        date: new Date(meetup.date),
-        localDate: new Date(meetup.date).toLocaleString(navigator.language, {
-          year: "numeric",
-          month: "long",
-          day: "numeric"
-        }),
-        dateOnlyString: new Date(meetup.date).toISOString().split("T")
+          : {}
       }));
     },
 
@@ -158,4 +151,37 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.filters-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 40px 0 32px 0;
+}
+
+.filters-panel__col {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+@media all and (max-width: 767px) {
+  .filters-panel {
+    flex-direction: column;
+  }
+
+  .filters-panel__col + .filters-panel__col {
+    margin-top: 16px;
+  }
+}
+
+@media all and (max-width: 480px) {
+  #filters-panel__search {
+    width: calc(100% - 112px);
+  }
+
+  #filters-panel__search > .form-control {
+    max-width: 100%;
+  }
+}
+</style>

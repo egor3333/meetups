@@ -1,15 +1,15 @@
 <template>
   <div class="meetups-list">
-    <meetup-list-item
+    <meetups-list-item
       v-for="meetup in meetups"
       :meetup="meetup"
       :key="meetup.id"
-    ></meetup-list-item>
+    ></meetups-list-item>
   </div>
 </template>
 
 <script>
-import MeetupListItem from "@/components/MeetupsListItem";
+import MeetupsListItem from "@/components/MeetupsListItem";
 
 export default {
   name: "MeetupsList",
@@ -22,7 +22,7 @@ export default {
   },
 
   components: {
-    MeetupListItem
+    MeetupsListItem
   }
 };
 </script>
