@@ -1,70 +1,28 @@
 <template>
   <div class="bg-white">
     <template v-if="meetup">
-      <div class="meetup-cover" :style="coverStyle">
-        <h1 class="meetup-cover__title">{{ meetup.title }}</h1>
-      </div>
+      <meetup-cover :title="meetup.title" :imageId="meetup.imageId" />
       <div class="container">
         <div class="meetup">
           <div class="meetup__content">
-            <div class="content-tabs" id="#meetupTabs">
-              <div class="content-tabs__nav">
-                <router-link
-                  :to="{
-                    name: 'meetup-description',
-                    params: { meetupId },
-                    hash: '#meetupTabs'
-                  }"
-                  class="content-tabs__tab"
-                  :class="{
-                    'content-tabs__tab_active':
-                      $route.name === 'meetup-description'
-                  }"
-                >
-                  Описание
-                </router-link>
-                <router-link
-                  :to="{
-                    name: 'meetup-agenda',
-                    params: { meetupId },
-                    hash: '#meetupTabs'
-                  }"
-                  class="content-tabs__tab"
-                  :class="{
-                    'content-tabs__tab_active': $route.name === 'meetup-agenda'
-                  }"
-                >
-                  Программа
-                </router-link>
-              </div>
-              <div class="content-tabs__content">
-                <fade-transition>
-                  <router-view :meetup="meetup" />
-                </fade-transition>
-              </div>
-            </div>
+            <content-tabs :meetup="meetup" />
           </div>
           <div class="meetup__aside">
-            <info-list :meetup="meetup" >
-              <template #default>
-                <li>
-                  <primary-button>Участвовать</primary-button>
-                </li>
-                <li>
-                  <secondary-button>Отменить участие</secondary-button>
-                </li>
-                <li>
-                  <primary-button
-                    tag="router-link"
-                    :to="{ name: 'edit-meetup', params: { meetupId } }"
-                    >Редактировать</primary-button
-                  >
-                </li>
-                <li>
-                  <danger-button>Удалить</danger-button>
-                </li>
-              </template>
-            </info-list>
+            <info-list :meetup="meetup" />
+            <div class="meetup__aside-buttons">
+              <primary-button>Участвовать</primary-button>
+              <secondary-button>Отменить участие</secondary-button>
+              <primary-button
+                tag="router-link"
+                :to="{
+                  name: 'edit-meetup',
+                  params: { meetupId: meetup.id }
+                }"
+              >
+                Редактировать
+              </primary-button>
+              <danger-button>Удалить</danger-button>
+            </div>
           </div>
         </div>
       </div>
@@ -76,21 +34,22 @@
 </template>
 
 <script>
-import { fetchMeetupById, getMeetupCoverLink } from "@/common/api";
+import { fetchMeetupById } from "@/common/api";
 import {
   PrimaryButton,
   SecondaryButton,
   DangerButton
 } from "@/components/Buttons";
 import InfoList from "@/components/InfoList";
-import FadeTransition from "@/components/FadeTransition";
+import ContentTabs from "@/components/ContentTabs";
+import MeetupCover from "@/components/MeetupCover";
 
 export default {
   name: "MeetupPage",
 
   props: {
     meetupId: {
-      type: String,
+      type: Number,
       required: true
     }
   },
@@ -100,7 +59,8 @@ export default {
     SecondaryButton,
     DangerButton,
     InfoList,
-    FadeTransition
+    ContentTabs,
+    MeetupCover
   },
 
   beforeRouteEnter(to, from, next) {
@@ -132,14 +92,6 @@ export default {
     };
   },
 
-  computed: {
-    coverStyle() {
-      return this.meetup.imageId
-        ? { "--bg-url": `url('${getMeetupCoverLink(this.meetup)}')` }
-        : {};
-    }
-  },
-
   methods: {
     setMeetup(meetup) {
       this.meetup = meetup;
@@ -149,84 +101,49 @@ export default {
 </script>
 
 <style scoped>
-.content-tabs {
-  margin: 0;
-}
-
-.content-tabs__nav {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-}
-
-.content-tabs__nav:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--grey-2);
-}
-
-.content-tabs__tab {
-  display: inline-flex;
-  padding: 10px 0;
-  font-weight: 400;
-  font-size: 18px;
-  text-decoration: none;
-  line-height: 28px;
-  color: var(--grey-8);
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-  margin-right: 18px;
-  transition: 0.2s all;
-  box-shadow: none;
-  background-color: transparent;
-  outline: none;
-  position: relative;
-  z-index: 1;
-}
-
-.content-tabs__tab:hover,
-.content-tabs__tab.content-tabs__tab_active {
-  border-bottom-color: var(--blue);
-  color: var(--blue);
-}
-
-.meetup-cover {
-  --bg-url: var(--default-cover);
-  background-size: cover;
-  background-position: center;
-  background-image: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.4)
-    ),
-    var(--bg-url);
+.meetup {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 410px;
-  max-width: 1216px;
-  margin: 0 auto;
+  margin: 48px 0 0;
 }
 
-.meetup-cover__title {
-  color: var(--white);
-  font-family: Roboto, sans-serif;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 48px;
-  padding: 0 16px;
-  text-align: center;
+.meetup__content p {
+  margin-bottom: 24px;
+  font-size: 18px;
+  line-height: 28px;
+  white-space: pre-wrap;
+}
+
+.meetup__aside {
+  margin: 40px 0;
+}
+
+.meetup__aside-buttons {
+  padding: 0 0 0 34px;
+  margin-top: 16px;
+}
+
+.meetup__aside-buttons > .button {
+  margin: 0 10px 10px 0;
 }
 
 @media all and (min-width: 992px) {
-  .meetup-cover__title {
-    font-size: 72px;
-    line-height: 84px;
+  .meetup {
+    flex-direction: row;
+  }
+
+  .meetup__content {
+    flex: 1 0 calc(100% - 350px);
+  }
+
+  .meetup__aside {
+    flex: 1 0 350px;
+    padding: 50px 0 0 44px;
+    margin: 0;
+  }
+
+  .meetup__empty {
+    height: 340px;
   }
 }
 </style>

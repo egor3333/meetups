@@ -12,7 +12,6 @@
       <app-icon icon="cal-lg" class="info-list__icon" />
       <time :datetime="dateOnlyString">{{ localDate }}</time>
     </li>
-    <slot name="default" />
   </ul>
 </template>
 
@@ -34,19 +33,17 @@ export default {
 
   computed: {
     localDate() {
-      return new Date(this.meetup.date).toLocaleString(navigator.language,
-        {
-          year: "numeric",
-          month: "long",
-          day: "numeric"
-        }
-      )
+      return new Date(this.meetup.date).toLocaleString(navigator.language, {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
     },
     dateOnlyString() {
-      return new Date(this.meetup.date).toISOString().split("T")
+      return new Date(this.meetup.date).toISOString().split("T");
     }
   }
-}
+};
 </script>
 
 <style scoped>

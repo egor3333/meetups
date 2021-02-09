@@ -10,25 +10,26 @@
       </div>
 
       <div class="filters-panel__col">
-        <div class="form-group form-group_inline">
-          <div class="input-group input-group_icon input-group_icon-left">
-            <app-icon icon="search" />
-            <input
-              id="filters-panel__search"
-              class="form-control form-control_rounded form-control_sm"
-              type="text"
-              placeholder="Поиск"
-              :value="search"
-              @input="handleSearchInput"
-            />
-          </div>
-        </div>
-        <div class="form-group form-group_inline">
+        <form-group inline>
+          <app-input
+            small
+            rounded
+            id="filters-panel__search"
+            type="text"
+            placeholder="Поиск"
+            v-model="searchInput"
+          >
+            <template #left-icon>
+              <app-icon icon="search" />
+            </template>
+          </app-input>
+        </form-group>
+        <form-group inline>
           <page-tabs
             :selected="view"
             :handleSelected="handlePageTabs"
-          ></page-tabs>
-        </div>
+          />
+        </form-group>
       </div>
     </div>
 
@@ -59,6 +60,8 @@ import FormCheck from "@/components/FormCheck";
 import AppEmpty from "@/components/AppEmpty";
 import AppIcon from "@/components/AppIcon";
 import FadeTransition from "@/components/FadeTransitionGroup";
+import FormGroup from "@/components/FormGroup";
+import AppInput from '@/components/AppInput';
 
 export default {
   name: "MeetupsPage",
@@ -76,7 +79,9 @@ export default {
     FormCheck,
     AppEmpty,
     AppIcon,
-    FadeTransition
+    FadeTransition,
+    FormGroup,
+    AppInput
   },
 
   props: {
@@ -111,6 +116,15 @@ export default {
       }));
     },
 
+    searchInput: {
+      get() {
+        return this.search
+      },
+      set(v) {
+        this.$emit("update:search", v);
+      }
+    },
+
     filteredMeetups() {
       const dateFilter = meetup =>
         this.date === "all" ||
@@ -140,9 +154,6 @@ export default {
   methods: {
     async fetchMeetups() {
       this.rawMeetups = await fetchMeetups();
-    },
-    handleSearchInput(e) {
-      this.$emit("update:search", e.target.value);
     },
     handlePageTabs(v) {
       this.$emit("update:view", v);

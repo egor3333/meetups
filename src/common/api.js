@@ -6,8 +6,8 @@ export const API_URL = process.env.VUE_APP_API_URL;
  * @param meetup - объект с описанием митапа (и параметром meetupId)
  * @return {string} - ссылка на изображение митапа
  */
-export function getMeetupCoverLink(meetup) {
-  return `${API_URL}/images/${meetup.imageId}`;
+export function getMeetupCoverLink(id) {
+  return `${API_URL}/images/${id}`;
 }
 
 /**

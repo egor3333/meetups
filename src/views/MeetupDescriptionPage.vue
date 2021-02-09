@@ -12,4 +12,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.meetup-description {
+  padding-top: 33px;
+}
+</style>
