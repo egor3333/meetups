@@ -41,13 +41,13 @@
 
     <div class="meetup-form__aside">
       <div class="meetup-form__aside_stick">
-        <router-link
+        <secondary-button
           :to="{ name: 'index' }"
-          class="button button_secondary button_block"
-          type="button"
+          :block="true"
+          tag="router-link"
         >
           Отмена
-        </router-link>
+        </secondary-button>
         <primary-button :block="true" type="submit">
           {{ submitText }}
         </primary-button>
@@ -58,7 +58,11 @@
 
 <script>
 import { cloneDeep, isEqual } from "lodash";
-import { BaseButton, PrimaryButton } from "@/components/Buttons";
+import {
+  BaseButton,
+  PrimaryButton,
+  SecondaryButton
+} from "@/components/Buttons";
 import AppInput from "@/components/AppInput";
 import FormGroup from "@/components/FormGroup";
 import ImageUploader from "@/components/ImageUploader";
@@ -84,6 +88,7 @@ export default {
   components: {
     BaseButton,
     PrimaryButton,
+    SecondaryButton,
     AppInput,
     FormGroup,
     ImageUploader,

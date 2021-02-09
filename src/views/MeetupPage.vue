@@ -11,7 +11,13 @@
             <info-list :meetup="meetup" />
             <div class="meetup__aside-buttons">
               <primary-button>Участвовать</primary-button>
-              <secondary-button>Отменить участие</secondary-button>
+              <secondary-button
+                :to="{ name: 'index' }"
+                :block="true"
+                tag="router-link"
+              >
+                Отменить участие
+              </secondary-button>
               <primary-button
                 tag="router-link"
                 :to="{
