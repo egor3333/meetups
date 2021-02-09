@@ -25,10 +25,7 @@
           </app-input>
         </form-group>
         <form-group inline>
-          <page-tabs
-            :selected="view"
-            :handleSelected="handlePageTabs"
-          />
+          <page-tabs :selected="view" :handleSelected="handlePageTabs" />
         </form-group>
       </div>
     </div>
@@ -61,7 +58,7 @@ import AppEmpty from "@/components/AppEmpty";
 import AppIcon from "@/components/AppIcon";
 import FadeTransition from "@/components/FadeTransitionGroup";
 import FormGroup from "@/components/FormGroup";
-import AppInput from '@/components/AppInput';
+import AppInput from "@/components/AppInput";
 
 export default {
   name: "MeetupsPage",
@@ -118,7 +115,7 @@ export default {
 
     searchInput: {
       get() {
-        return this.search
+        return this.search;
       },
       set(v) {
         this.$emit("update:search", v);
