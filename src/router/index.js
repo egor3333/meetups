@@ -27,7 +27,9 @@ const routes = [
     path: "/meetups/:meetupId(\\d+)",
     redirect: to => ({ name: "meetup-description", params: to.params }),
     name: "meetup",
-    props: true,
+    props: to => ({
+      meetupId: Number(to.meetupId)
+    }),
     meta: {
       showReturnToMeetups: true
     },
